@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import time
 
 def info_anime(soup):
 
@@ -44,10 +45,18 @@ soup = BeautifulSoup(mal_web_page, "lxml")
 
 
 for i in soup.find_all('h2', {'class':'h2_anime_title'}):
+    anime_links_queue = []
+
     link = i.find('a', href=True)
     if link is None:
         continue
-    url = requests.get(link['href'])
+
+    anime_links_queue.append(link['href'])
+
+
+    url = requests.get(anime_links_queue.pop(0))
     anime_info_page = url.content
     soup_info = BeautifulSoup(anime_info_page, "html.parser")
     info_anime(soup_info)
+
+    time.sleep(60)
