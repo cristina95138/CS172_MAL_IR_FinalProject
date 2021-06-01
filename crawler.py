@@ -2,13 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 import time
 
-def info_anime(soup):
+def info_anime(soup, output):
 
     #Extracting the name of the anime
 
     anime=soup.find(name="h1",attrs={"class":"title-name h1_bold_none"})
     name=anime.text
-    print ("Anime: "+name)
+    output += "Anime: "+name + "\n"
 
     # japan=soup.find(name="span",attrs={"class":"dark_text"})
     # japanese=japan.text
@@ -17,24 +17,28 @@ def info_anime(soup):
     #Extracting the rating
 
     rating=soup.find(name="div",attrs={"class":"fl-l score"})
-    print ("Rating: "+(rating.text.strip()))
+    output += "Rating: "+(rating.text.strip()) + "\n"
 
 
     #extracting the description
 
     des=soup.find(name="p",attrs={"itemprop":"description"})
     description=des.text
-    print ("Description : "+description)
+    output += "Description : "+description + "\n"
 
     #Extracting the Rank
 
     rank=soup.find(name="span",attrs={"class":"numbers ranked"})
-    print (rank.text)
+    output += rank.text + "\n"
 
     #Extracting number of episodes
 
     ep=soup.find(name="div",attrs={"class":"spaceit"})
-    print (ep.text)
+    output += ep.text + "\n"
+
+    output += "\n" + "\n"
+
+    return output
 
     # print (info_anime(soup))
 
@@ -53,10 +57,13 @@ for i in soup.find_all('h2', {'class':'h2_anime_title'}):
 
     anime_links_queue.append(link['href'])
 
+    output = ""
 
     url = requests.get(anime_links_queue.pop(0))
     anime_info_page = url.content
     soup_info = BeautifulSoup(anime_info_page, "html.parser")
-    info_anime(soup_info)
+    out = info_anime(soup_info, output)
+    with open('output.txt', 'a') as f:
+        f.write(out)
 
     time.sleep(60)
