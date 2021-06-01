@@ -36,7 +36,7 @@ def info_anime(soup, output):
     ep=soup.find(name="div",attrs={"class":"spaceit"})
     output += ep.text + "\n"
 
-    output += "\n" + "\n"
+    output += "\n"
 
     return output
 
