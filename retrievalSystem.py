@@ -24,4 +24,4 @@ all_hits = result['hits']['hits']
 
 all_hits
 
-es.indices.delete(index='animes')
+#es.indices.delete(index='animes')

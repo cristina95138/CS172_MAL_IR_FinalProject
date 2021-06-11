@@ -75,7 +75,7 @@ for i in soup.find_all('h2', {'class':'h2_anime_title'}):
     ranks.append(out[3])
     num_episodes.append(out[4])
 
-        #time.sleep(60)
+    time.sleep(60)
 
 df = pd.DataFrame({
         'name': names,
