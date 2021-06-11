@@ -27,9 +27,16 @@
 
 ### Design:
 
+- Creates Elasticsearch index from csv created from the crawler
+- Gets inputted searches from command line
+- Employs es.search in order to search through creasted index for searches inputted on the command line
+- Outputs the search results
+
 ### Run Instructions:
 
-1. python3 retrievalSystem.py
+1. Run your Elasticsearch locally
+2. python3 retrievalSystem.py
+3. Input search items into search input
 
 ## Part 3: Extension
 
