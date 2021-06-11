@@ -4,7 +4,7 @@
 
 ### Run Instructions:
 
-#### yes
+1. python3 crawler.py
 
 ## Part 2: Indexer
 
