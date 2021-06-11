@@ -30,3 +30,9 @@
 ### Run Instructions:
 
 1. python3 retrievalSystem.py
+
+## Part 3: Extension
+
+### Design:
+
+### Run Instructions:
