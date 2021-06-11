@@ -3,16 +3,19 @@ import csv
 es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
 def createIndex():
-	with open('output.csv') as f:
-		reader = csv.DictReader(f)
-		#es.indices.delete(index='animes')
-		helpers.bulk(es, reader, index='animes')
+    with open('output.csv') as f:
+        reader = csv.DictReader(f)
+        helpers.bulk(es, reader, index='animes')
+
+createIndex()
 
 result = es.search(
         index="animes",
         body={
             "query": {
-                "match_all": {}
+                "match": {
+                    "name": "Boku"
+                }
             }
         }
 )
@@ -20,3 +23,5 @@ result = es.search(
 all_hits = result['hits']['hits']
 
 all_hits
+
+es.indices.delete(index='animes')
