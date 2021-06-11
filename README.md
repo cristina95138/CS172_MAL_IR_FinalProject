@@ -2,6 +2,11 @@
 
 ## Part 1: Crawler
 
+### Design:
+
+#### (a) Architecture
+
+#### (b) The Crawling or data collection strategy (do you handle duplicate URLs, is your crawler parallel, etc.)
 - Grabs url content from MAL.
 - Use BeautifulSoup to turn url content to lxml format.
 - Search through BeautifulSoup lxml document for names, ratings, descriptions, ranks, and num_episodes.
@@ -9,7 +14,9 @@
 - Create dataframe with all information.
 - Convert dataframe to csv file called output.csv.
 
-### Design:
+#### (c) Data Structures employed
+- Lists
+- Dataframe
 
 ### Run Instructions:
 
