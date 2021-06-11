@@ -1,9 +1,10 @@
-from elasticsearch import Elasticsearch
+from elasticsearch import Elasticsearch, helpers
+import csv
 es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
 
-f = open('output.txt', 'r')
-contents = f.read()
-f.close()
+with open('output.csv') as f:
+	reader = csv.DictReader(f)
+	helpers.bulk(es, reader, index='animes')
 
 doc = {
 	    "settings" : {

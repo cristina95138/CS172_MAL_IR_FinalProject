@@ -1,14 +1,16 @@
 from bs4 import BeautifulSoup
 import requests
 import time
+import pandas as pd
 
 def info_anime(soup, output):
+    output = []
 
     #Extracting the name of the anime
 
     anime=soup.find(name="h1",attrs={"class":"title-name h1_bold_none"})
     name=anime.text
-    output += "Anime: "+name + "\n"
+    output.append(name)
 
     # japan=soup.find(name="span",attrs={"class":"dark_text"})
     # japanese=japan.text
@@ -17,26 +19,24 @@ def info_anime(soup, output):
     #Extracting the rating
 
     rating=soup.find(name="div",attrs={"class":"fl-l score"})
-    output += "Rating: "+(rating.text.strip()) + "\n"
+    output.append((rating.text.strip()))
 
 
     #extracting the description
 
     des=soup.find(name="p",attrs={"itemprop":"description"})
     description=des.text
-    output += "Description : "+description + "\n"
+    output.append(description)
 
     #Extracting the Rank
 
     rank=soup.find(name="span",attrs={"class":"numbers ranked"})
-    output += rank.text + "\n"
+    output.append(rank.text)
 
     #Extracting number of episodes
 
     ep=soup.find(name="div",attrs={"class":"spaceit"})
-    output += ep.text + "\n"
-
-    output += "\n"
+    output.append(ep.text)
 
     return output
 
@@ -47,6 +47,11 @@ mal_web_page = url.content
 
 soup = BeautifulSoup(mal_web_page, "lxml")
 
+names = []
+ratings = []
+descriptions = []
+ranks = []
+num_episodes = []
 
 for i in soup.find_all('h2', {'class':'h2_anime_title'}):
     anime_links_queue = []
@@ -63,7 +68,22 @@ for i in soup.find_all('h2', {'class':'h2_anime_title'}):
     anime_info_page = url.content
     soup_info = BeautifulSoup(anime_info_page, "html.parser")
     out = info_anime(soup_info, output)
-    with open('output.txt', 'a') as f:
-        f.write(out)
+
+    names.append(out[0])
+    ratings.append(out[1])
+    descriptions.append(out[2])
+    ranks.append(out[3])
+    num_episodes.append(out[4])
 
     time.sleep(60)
+
+df = pd.DataFrame({
+        'name': names,
+        'rating': ratings,
+        'description': descriptions,
+        'rank': ranks,
+        'num_episodes': num_episodes,
+        'timestamp': "2021-06-10"
+})
+
+df.to_csv('output.csv', index=False)
