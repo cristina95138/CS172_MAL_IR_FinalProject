@@ -7,7 +7,7 @@ with open('output.csv') as f:
 	helpers.bulk(es, reader, index='animes')
 
 result = es.search(
-          index="contents",
+          index="animes",
           body={
               "query": {
                   "match_all": {}
