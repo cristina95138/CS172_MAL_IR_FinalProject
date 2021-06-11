@@ -5,7 +5,7 @@
 ### Design:
 
 #### (a) Architecture
-- 
+![alt text](1200px-WebCrawlerArchitecture.svg.png)
 
 #### (b) The Crawling or data collection strategy (do you handle duplicate URLs, is your crawler parallel, etc.)
 - Grabs url content from MAL.
