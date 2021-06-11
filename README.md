@@ -9,3 +9,5 @@
 ## Part 2: Indexer
 
 ### Run Instructions:
+
+1. python3 retrievalSystem.py
